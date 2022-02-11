@@ -1,0 +1,32 @@
+{% extends "app/base.html" %}
+
+{% block content %}
+<div class="mt-4">
+  <!-- export link -->
+  <a class="btn btn-primary" href="{% url 'app:export' %}?{{ request.GET.urlencode }}">export</a>
+  <a class="btn btn-success" href="{% url 'app:export_excel' %}">export excel</a>
+  <a class="btn btn-warning" href="{% url 'app:export_pandas_df' %}">export pandas df</a>
+  <!-- search form -->
+  <form class="mt-2" id="search-form" name="search-form" method="GET">
+    <div class="row">
+      <div class="col-md-2">
+        {{ search_form.key_word }}
+      </div>
+      <div class="col-md-2">
+        {{ search_form.category }}
+      </div>
+      <div class="col-md-2">
+        <button class="btn btn-sm btn-info ml-4" type="submit">Search</button>
+      </div>
+    </div>
+  </form>
+  <!-- post list -->
+  {% for post in post_list  %}
+  <article class="mt-4">
+    <span class>{{ post.category }}</span>
+    <h1>{{ post.title }}</h1>
+  </article>
+  {% endfor %}
+</div>
+
+{% endblock %}
